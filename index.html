@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIAP - Kelurahan Kasawari</title>
+    <!-- Font dan Ikon -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --primary: #1e3a8a; 
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #f3f4f6; 
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: #ffffff;
+        }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6;
+        }
+        
+        /* HEADER STYLING */
+        header { 
+            background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(59, 130, 246, 0.75)), url('batu.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            padding: 2.5rem 1rem 3rem 1rem; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--accent);
+        }
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            padding-right: 250px;
+        }
+        
+        /* LOGO KIRI */
+        .header-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 110px;
+        }
+        .logo-ring {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 14px;
+            border-radius: 50%;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            margin-bottom: -12px;
+            position: relative;
+            z-index: 1;
+        }
+        .logo-ring img {
+            height: 70px; 
+            object-fit: contain;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+            transition: transform 0.3s;
+            display: block;
+        }
+        .logo-ring:hover img { transform: scale(1.08); }
+
+        .badge-label {
+            background: linear-gradient(135deg, var(--accent), #d97706);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.4);
+            white-space: nowrap;
+        }
+
+        /* TEKS TENGAH */
+        .header-text { text-align: center; flex: 1; padding: 0 15px; }
+        .header-text h1 { 
+            margin: 0; font-size: 2.8rem; font-weight: 800; 
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7); letter-spacing: 1px;
+        }
+        .header-text h2 { 
+            margin: 5px 0 0 0; font-size: 1.4rem; font-weight: 600; 
+            color: #ffffff; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+        }
+        .header-text p { 
+            margin: 5px 0 0 0; font-size: 1rem; font-weight: 400; 
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7); 
+        }
+        
+        /* FOTO PIMPINAN */
+        .header-officials {
+            position: absolute;
+            right: -1rem;
+            bottom: -3.3rem; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+        }
+        .alt-badge {
+            background: linear-gradient(135deg, #1e40af, var(--secondary));
+            margin-bottom: 15px;
+        }
+        .header-officials img {
+            height: 240px; 
+            object-fit: contain;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
+        }
+        .header-officials:hover img { transform: translateY(-3px) scale(1.02); }
+        
+        /* KONTEN UTAMA */
+        .container { max-width: 1000px; margin: -1.5rem auto 2rem auto; padding: 0 1rem; position: relative; z-index: 4;}
+        
+        .card { 
+            background: var(--card-bg); padding: 1.5rem; border-radius: 12px; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
+            margin-bottom: 1.5rem; transition: all 0.3s ease; border-top: 4px solid transparent;
+        }
+        
+        /* Efek klik untuk kartu menu */
+        .layanan-item { cursor: pointer; }
+        .layanan-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .dashboard-card { cursor: default; }
+        .dashboard-card:hover { transform: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        
+        .search-box {
+            width: 100%; padding: 12px 15px; margin-bottom: 20px;
+            border: 2px solid #e5e7eb; border-radius: 8px; font-family: 'Poppins', sans-serif;
+            font-size: 1rem; transition: border-color 0.3s; box-sizing: border-box;
+        }
+        .search-box:focus { outline: none; border-color: var(--secondary); }
+
+        .btn { 
+            background: linear-gradient(to right, var(--secondary), var(--primary)); 
+            color: white; padding: 10px 16px; border: none; border-radius: 8px; 
+            cursor: pointer; font-weight: 600; width: 100%; transition: opacity 0.3s, transform 0.2s;
+            font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn:hover { opacity: 0.9; transform: scale(1.02); }
+        
+        .btn-outline {
+            background: #eff6ff; color: var(--primary); box-shadow: none; border: 1px solid #bfdbfe;
+        }
+        .btn-outline:hover { background: #dbeafe; transform: scale(1.02); }
+
+        .ngrok-input-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .ngrok-input-group input { flex: 1; min-width: 200px; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: 'Poppins', sans-serif; }
+
+        /* MODAL QR CODE */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: 16px; width: 90%; max-width: 400px;
+            text-align: center; transform: translateY(20px); transition: transform 0.3s;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        #qrcode { display: flex; justify-content: center; margin: 1.5rem 0; padding: 15px; background: white; border-radius: 10px; border: 2px dashed #e2e8f0; }
+
+        /* LIST & CATATAN */
+        .sub-card {
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; 
+            margin-bottom: 15px; overflow: hidden;
+        }
+        .sub-card h4 {
+            margin: 0; background: var(--secondary); color: white; 
+            padding: 10px 15px; font-size: 1rem;
+        }
+        ul.syarat-list { padding-left: 20px; color: var(--text-main); margin-top: 10px; }
+        ul.syarat-list li { margin-bottom: 8px; padding-left: 5px; }
+        ul.syarat-list li::marker { color: var(--secondary); font-weight: bold; }
+        
+        .catatan { background: #eff6ff; padding: 20px; border-left: 5px solid var(--secondary); border-radius: 8px; margin-top: 25px; }
+        .catatan ol { padding-left: 20px; margin-top: 10px; }
+        .catatan li { margin-bottom: 5px; }
+        
+        .back-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 1rem;
+            color: var(--secondary); text-decoration: none; font-weight: 600;
+            padding: 8px 15px; background: #eff6ff; border-radius: 8px; transition: background 0.2s;
+        }
+        .back-link:hover { background: #dbeafe; }
+        .service-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 10px; }
+        
+        /* RESPONSIF HP */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; text-align: center; gap: 1.5rem; padding-right: 0; }
+            .header-text h1 { font-size: 2.2rem; }
+            .header-officials { 
+                position: relative; right: auto; bottom: -3.3rem; margin-top: 10px;
+            }
+            .header-officials img { height: 180px; }
+            .container { margin-top: -1rem; }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-logo">
+                <div class="logo-ring"><img src="bitung.png" alt="Logo Kota Bitung"></div>
+                <div class="badge-label">KOTA BITUNG</div>
+            </div>
+            <div class="header-text">
+                <h1>SIAP</h1>
+                <h2>Sistem Informasi Administrasi Pemerintah</h2>
+                <p>Kelurahan Kasawari, Kota Bitung</p>
+            </div>
+            <div class="header-officials">
+                <div class="badge-label alt-badge">PIMPINAN DAERAH</div>
+                <img src="pemerintah.png" alt="Pemerintah Kota Bitung">
+            </div>
+        </div>
+    </header>
+
+    <!-- Tempat merender tampilan halaman -->
+    <div class="container" id="app"></div>
+
+    <!-- Modal QR Code Utama -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color: var(--primary);">Barcode Aplikasi SIAP</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;">Scan barcode ini untuk membuka Menu Layanan di HP Pemohon</p>
+            <div id="qrcode"></div>
+            <button class="btn" style="background: #ef4444;" onclick="closeModal()">
+                <i class="fas fa-times"></i> Tutup Barcode
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const dataLayanan = {
+            "pindah-datang": {
+                icon: "fa-truck-arrow-right",
+                title: "Pindah Datang (WNI Antar Kab/Kota)",
+                syarat: [
+                    "Formulir F1.02 Peristiwa Kependudukan",
+                    "Formulir F1.03 Perpindahan Penduduk",
+                    "Surat Persetujuan menggunakan Alamat",
+                    "Surat Pernyataan Tidak Keberatan Menumpang Kartu Keluarga (jika menumpang)",
+                    "Kartu Keluarga Wali (jika menumpang)",
+                    "KTP-el domisili lama",
+                    "KIA domisili lama (usia 0-16 tahun)",
+                    "SKPWNI (Jika sudah ada dari daerah asal)"
+                ]
+            },
+            "pindah-keluar": {
+                icon: "fa-person-walking-arrow-right",
+                title: "Pindah Keluar",
+                syarat: [
+                    "Formulir F1.02 Peristiwa kependudukan",
+                    "Formulir F1.03 Perpindahan penduduk",
+                    "Kartu Keluarga Asli",
+                    "KIA (jika dibawah usia 17 tahun)",
+                    "KTP-el Asli"
+                ]
+            },
+            "pindah-domisili": {
+                icon: "fa-house-user",
+                title: "Pindah Domisili Dalam Kota",
+                syarat: [
+                    "Formulir F1.02 Peristiwa Kependudukan",
+                    "Formulir F1.03 Perpindahan Penduduk",
+                    "Surat Persetujuan menggunakan Alamat",
+                    "Surat Pernyataan Menumpang KK (jika menumpang KK)",
+                    "Kartu Keluarga Wali (jika menumpang kartu keluarga)",
+                    "KTP-el domisili lama",
+                    "KIA domisili lama"
+                ]
+            },
+            "ktp-el": {
+                icon: "fa-id-card",
+                title: "Penerbitan KTP-el",
+                subcategories: [
+                    { subtitle: "A. Penerbitan KTP El baru untuk WNI", syarat: ["Formulir F1.02 Pendaftaran peristiwa kependudukan", "Kartu Keluarga (Telah berusia 17 tahun, sudah kawin atau pernah kawin)"] },
+                    { subtitle: "B. Penerbitan KTP-el Baru Karena Pindah", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "SKPWNI", "Kartu Keluarga", "KTP-el lama", "Surat Persetujuan menggunakan alamat"] },
+                    { subtitle: "C. Penerbitan KTP-el Baru Karena Perubahan Data", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Formulir F1.06 Perubahan Elemen Data", "Surat Keterangan / Bukti Perubahan (cth: Akta Kelahiran, Penetapan Pengadilan, Paspor, Ijazah)", "Kartu Keluarga", "KTP-el lama"] },
+                    { subtitle: "D. Penerbitan KTP-el Karena Rusak", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Kartu Keluarga", "KTP-el rusak"] },
+                    { subtitle: "E. Penerbitan KTP-el Karena Hilang", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Surat Keterangan Hilang dari Kepolisian", "Kartu Keluarga"] }
+                ]
+            },
+            "kk": {
+                icon: "fa-users-rectangle",
+                title: "Penerbitan Kartu Keluarga (KK)",
+                subcategories: [
+                    { subtitle: "A. Penerbitan KK Baru Karena Membentuk Keluarga Baru", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Buku Nikah atau Akta Perkawinan atau Akta Perceraian", "Formulir F1.05 SPTJM Perkawinan/Perceraian belum tercatat (jika tidak memiliki akta)", "Kartu Keluarga lama suami-istri", "Jika salah satu beda alamat, ikuti syarat PINDAH DOMISILI / PINDAH DATANG"] },
+                    { subtitle: "B. Penerbitan KK Karena Penggantian Kepala Keluarga", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Akta kematian (jika kepala keluarga meninggal)", "Kartu Keluarga lama", "Kartu Keluarga yang menjadi wali (Jika anggota keluarga anak usia dibawah 17 tahun)", "Surat Pernyataan Bersedia menjadi wali (Jika anak dibawah 17 tahun)"] },
+                    { subtitle: "C. Penerbitan KK Karena Pisah KK dalam 1 Alamat", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Formulir F1.03 Perpindahan Penduduk", "Kartu Keluarga", "Buku Nikah atau Akta Perkawinan/Perceraian", "KTP-El (jika penduduk belum menikah dan berumur 17 tahun)"] },
+                    { subtitle: "D. Penerbitan KK Karena Perubahan Data", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Formulir F1.06 Perubahan Elemen Data", "Kartu Keluarga", "Surat Keterangan/Bukti Perubahan (cth: Paspor, SKPWNI, dll)", "Surat Pernyataan Pengasuhan dari orangtua (jika pindah KK)", "Surat Pernyataan Tidak Keberatan Numpang KK", "Surat Persetujuan menggunakan Alamat (jika pindah datang)"] },
+                    { subtitle: "E. Penerbitan KK Karena Hilang", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Surat Keterangan Hilang dari Kepolisian", "KTP-El", "Kartu Izin Tinggal Tetap (untuk Orang Asing)"] },
+                    { subtitle: "F. Penerbitan KK Karena Rusak", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Kartu Keluarga rusak", "KTP-El", "Kartu Izin Tinggal Tetap (untuk Orang Asing)"] }
+                ]
+            },
+            "kia": {
+                icon: "fa-child-reaching",
+                title: "Kartu Identitas Anak (KIA)",
+                subcategories: [
+                    { subtitle: "A. Penerbitan KIA Baru Untuk Anak WNI", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Akta Kelahiran", "Kartu Keluarga orang tua / wali", "KTP-el orang tua / wali (usia dibawah 5 tahun)", "Foto anak berwarna (usia 5-16 tahun)"] },
+                    { subtitle: "B. Penerbitan KIA Baru Karena Hilang", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "Surat Keterangan Hilang dari Kepolisian", "Kartu Keluarga orang tua / wali"] },
+                    { subtitle: "C. Penerbitan KIA Baru Karena Rusak", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "KIA Rusak", "Kartu Keluarga orang tua / wali"] },
+                    { subtitle: "D. Penerbitan KIA Karena Pindah Datang", syarat: ["Formulir F1.02 Peristiwa Kependudukan", "SKPLN (Luar Negeri) / SKP (Dalam NKRI)", "KIA lama", "Kartu Keluarga orang tua / wali", "Surat Persetujuan menggunakan alamat"] }
+                ]
+            },
+            "kelahiran": {
+                icon: "fa-baby",
+                title: "Akta Kelahiran",
+                subcategories: [
+                    { subtitle: "A. Akta Kelahiran Bayi Baru Lahir (WNI)", syarat: ["Formulir F2.01 Kelahiran", "Formulir F1.02 Peristiwa Kependudukan", "Surat Keterangan Kelahiran (RS/Puskesmas/Dokter/Bidan/Lurah)", "Akta Perkawinan / Buku Nikah", "Kartu Keluarga", "KTP Ibu yang melahirkan", "F2.03 SPTJM Kebenaran data kelahiran & 2 saksi (jika tidak ada Srt Keterangan Lahir)", "F2.04 SPTJM Pasutri & 2 saksi (jika tidak ada Buku Nikah)", "Buku KIA"] },
+                    { subtitle: "B. Akta Kelahiran Rusak (Kutipan Akta)", syarat: ["Akta Kelahiran Rusak", "Kartu Keluarga", "Formulir F2.01 Kelahiran", "Catatan: Bila akta terbit di daerah lain, harus menunggu konfirmasi keabsahan"] },
+                    { subtitle: "C. Akta Kelahiran Hilang (Kutipan Akta)", syarat: ["Surat Keterangan Hilang dari Kepolisian", "Foto Copy Akta Kelahiran (jika ada)", "Kartu Keluarga", "Formulir F2.01 Kelahiran"] },
+                    { subtitle: "D. Kelahiran tidak diketahui asal usul ortu", syarat: ["Formulir F2.01 Kelahiran", "BAP dari Kepolisian bagi anak yang tidak diketahui asal usulnya"] },
+                    { subtitle: "E. Akta Kelahiran Bayi Baru Lahir di Luar Negeri", syarat: ["Formulir F2.01 Kelahiran", "Akta Kelahiran Luar Negeri", "Surat keterangan dari KBRI/Kementrian LN", "Surat Terjemahan Akta Kelahiran (Penerjemah Tersumpah Asli)", "Paspor/SPLN Bapak, Ibu, Anak", "Akta Perkawinan", "Formulir F1.02"] },
+                    { subtitle: "F. Pencatatan Kelahiran Orang Asing", syarat: ["Formulir F2.01 Kelahiran", "Surat keterangan kelahiran", "Buku nikah / Akta Perkawinan ortu", "Kartu Keluarga", "F2.03 SPTJM Kebenaran data & 2 saksi", "F2.04 SPTJM Pasutri & 2 saksi", "Dokumen perjalanan, paspor, KITAP/KITAS", "Formulir F1.02"] },
+                    { subtitle: "G. Anak berkewarganegaraan ganda (Memilih WNI)", syarat: ["Formulir F2.01 Kelahiran", "Keputusan Menteri Hukum dan HAM", "Akta pencatatan sipil", "Kartu Keluarga"] },
+                    { subtitle: "H. Anak berkewarganegaraan ganda (Memilih WNA)", syarat: ["Formulir F2.01 Kelahiran", "Surat bukti penyerahan dokumen kewarganegaraan", "Akta Kelahiran"] },
+                    { subtitle: "I. Anak ganda tidak memiliki salah satu kewarganegaraan", syarat: ["Formulir F2.01 Kelahiran", "KITAP/KITAS", "Akta Kelahiran"] }
+                ]
+            },
+            "kematian": {
+                icon: "fa-bed",
+                title: "Akta Kematian",
+                subcategories: [
+                    { subtitle: "A. Penerbitan Akta Kematian", syarat: ["Formulir F2.01 Kematian (WNI) / F2.02 (Orang Asing)", "Formulir F1.02 Peristiwa Kependudukan", "Surat Keterangan Kematian dari Rumah Sakit/Kelurahan", "Kartu Keluarga", "KTP-el yang meninggal", "Surat Ket Kepolisian bagi kematian tidak jelas identitas", "Salinan Penetapan Pengadilan (hilang/mati tidak ditemukan jenazah)", "Surat Ket Kematian dari Pengadilan RI (meninggal di luar NKRI)"] },
+                    { subtitle: "B. Akta Kematian Rusak (Kutipan Akta)", syarat: ["Akta Kematian Rusak", "Formulir F2.01 Kematian"] },
+                    { subtitle: "C. Akta Kematian Hilang (Kutipan Akta)", syarat: ["Surat Keterangan Hilang dari kepolisian", "Formulir F2.01 Kematian", "Foto Copy Akta Kematian (jika ada)"] }
+                ]
+            },
+            "perkawinan": {
+                icon: "fa-ring",
+                title: "Akta Perkawinan",
+                subcategories: [
+                    { subtitle: "A. Pengurusan Akta Perkawinan WNI", syarat: ["Surat Keterangan Perkawinan dari Pemuka Agama", "Formulir F2.01 Perkawinan", "Formulir F1.02 Peristiwa Kependudukan", "Pas photo berwarna Suami Istri", "KTP-el", "Kartu Keluarga", "Foto Asli Akta Kematian (Janda/Duda cerai mati)", "Foto Asli Akta Perceraian (Janda/Duda cerai hidup)", "Penetapan Pengadilan Dispensasi Kawin (<18 Tahun)", "Surat Ijin Menikah dari orang tua (<20 Tahun)"] },
+                    { subtitle: "B. Pencatatan Pembatalan Perkawinan", syarat: ["Formulir F2.01 Pembatalan Perkawinan", "Salinan Putusan Pengadilan", "Akta Perkawinan", "KTP-el", "Kartu Keluarga", "Formulir F1.02 Peristiwa Kependudukan"] }
+                ]
+            },
+            "perceraian": {
+                icon: "fa-heart-crack",
+                title: "Akta Perceraian",
+                subcategories: [
+                    { subtitle: "A. Pengurusan Akta Perceraian", syarat: ["Formulir F2.01 Perceraian", "Formulir F1.02 Peristiwa Kependudukan", "Salinan putusan pengadilan yang telah mempunyai kekuatan hukum tetap", "Kutipan akta perkawinan", "KTP-el", "Kartu Keluarga"] },
+                    { subtitle: "B. Pencatatan Pembatalan Akta Perceraian", syarat: ["Formulir F2.01 Pembatalan Perceraian", "Formulir F1.02 Peristiwa Kependudukan", "Salinan putusan pengadilan yang mempunyai kekuatan hukum tetap", "Akta Perceraian", "KTP-el asli", "Kartu Keluarga"] }
+                ]
+            }
+        };
+
+        const catatanUmum = `
+            <div class="catatan">
+                <strong><i class="fas fa-circle-exclamation"></i> Catatan Penting Kelurahan:</strong>
+                <ol>
+                    <li>Dokumen yang diupload/unggah harus difoto/scan dari <strong>ASLI-nya</strong>.</li>
+                    <li>Silakan isi form pengajuan pada link berikut:<br>
+                        <strong><a href="MASUKKAN_LINK_GOOGLE_FORM_ANDA_DI_SINI" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: bold;">Klik di Sini untuk Mengisi Form Pengajuan</a></strong>
+                    </li>
+                    <li>Untuk pindah datang yang belum ada SKPWNI, wajib ke kantor Dukcapil terlebih dahulu.</li>
+                    <li>KTP-el lama/rusak wajib diserahkan kepada petugas loket Kelurahan saat pengambilan dokumen.</li>
+                </ol>
+                <hr style="border:0; border-top: 1px solid #cbd5e1; margin: 15px 0;">
+                <div style="font-size: 0.9em; color: var(--text-muted);">
+                    <strong>Dasar Aturan:</strong> UU 23/2006, UU 24/2013, Perpres 96/2018, Permendagri 108/2019, Permendagri 109/2019.<br>
+                    <strong>Tarif/Biaya:</strong> <span style="color: #16a34a; font-weight: bold;">TIDAK BERBAYAR (GRATIS)</span>
+                </div>
+            </div>
+        `;
+
+        function renderDashboard() {
+            // MAGIC AUTO-DETECTION: Mengecek apakah dibuka di komputer kelurahan atau lewat internet
+            const isKomputerKelurahan = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            let html = '';
+
+            // Tampilkan Panel Admin HANYA jika dibuka di komputer kelurahan (localhost)
+            if (isKomputerKelurahan) {
+                html += `
+                    <div class="card dashboard-card" style="border-top: 4px solid #ef4444 !important; background-color: #fef2f2;">
+                        <h2 style="margin-top: 0; color: #b91c1c;"><i class="fas fa-desktop"></i> Khusus Layar Komputer Kelurahan</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 5px;">Masukkan URL Ngrok aktif untuk membuat <strong>Barcode Utama Aplikasi</strong>:</p>
+                        <div class="ngrok-input-group">
+                            <input type="text" id="ngrokUrl" placeholder="Contoh: https://abcd-123.ngrok-free.app">
+                            <button class="btn" style="width: auto; background: #ef4444;" onclick="generateMasterQR()"><i class="fas fa-qrcode"></i> Tampilkan Barcode</button>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #b91c1c; margin-top: 10px; margin-bottom: 0;">*Catatan: Kotak merah ini otomatis menghilang jika warga membuka aplikasi di HP mereka.</p>
+                    </div>
+                `;
+            }
+
+            // Bagian pencarian dan daftar layanan (Semua bisa lihat)
+            html += `<input type="text" id="searchInput" class="search-box" placeholder="🔍 Cari layanan administrasi... (Misal: KTP, Kelahiran)" onkeyup="filterLayanan()">`;
+            html += `<div class="grid" id="layananGrid">`;
+
+            for (const [key, data] of Object.entries(dataLayanan)) {
+                html += `
+                    <div class="card layanan-item" onclick="renderLayanan('${key}')">
+                        <i class="fas ${data.icon} service-icon"></i>
+                        <h3 class="layanan-title" style="font-size: 1.1rem; margin: 10px 0;">${data.title}</h3>
+                        <button class="btn btn-outline"><i class="fas fa-hand-pointer"></i> Lihat Persyaratan</button>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            document.getElementById('app').innerHTML = html;
+            
+            // Mengembalikan URL Ngrok yang tersimpan khusus untuk admin
+            if (isKomputerKelurahan) {
+                const savedUrl = localStorage.getItem('ngrokUrl');
+                if (savedUrl && document.getElementById('ngrokUrl')) {
+                    document.getElementById('ngrokUrl').value = savedUrl;
+                }
+            }
+        }
+
+        function filterLayanan() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('layanan-item');
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].querySelector('.layanan-title').innerText.toLowerCase();
+                cards[i].style.display = title.indexOf(input) > -1 ? "" : "none";
+            }
+        }
+
+        function generateMasterQR() {
+            let baseUrl = document.getElementById('ngrokUrl').value.trim();
+            if(!baseUrl) {
+                baseUrl = window.location.origin + window.location.pathname;
+            } else {
+                localStorage.setItem('ngrokUrl', baseUrl); 
+            }
+            
+            // Barcode langsung diarahkan ke URL asli (Sistem auto-deteksi akan bekerja)
+            const fullUrl = baseUrl.replace(/\/+$/, '');
+            const modal = document.getElementById('qrModal');
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = ""; 
+            
+            new QRCode(qrContainer, {
+                text: fullUrl, width: 250, height: 250, colorDark : "#1e3a8a", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
+            });
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('qrModal').classList.remove('active');
+        }
+
+        function renderLayanan(key) {
+            const data = dataLayanan[key];
+            if (!data) return;
+
+            let html = `
+                <div class="card" style="border-top: 4px solid var(--primary); padding-bottom: 2rem; margin-bottom: 3rem;">
+                    
+                    <a href="#" onclick="renderDashboard(); return false;" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Menu Layanan</a>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; margin: 1rem 0 1rem 0; padding-bottom: 15px; border-bottom: 2px solid var(--bg);">
+                        <div style="background: var(--primary); color: white; width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            <i class="fas ${data.icon}"></i>
+                        </div>
+                        <h2 style="margin: 0; color: var(--primary); font-size: 1.5rem;">${data.title}</h2>
+                    </div>
+            `;
+            
+            if (data.subcategories) {
+                html += `<h3 style="color: var(--text-main); margin-bottom: 15px;"><i class="fas fa-list-check"></i> Persyaratan Berdasarkan Jenis:</h3>`;
+                data.subcategories.forEach(sub => {
+                    html += `
+                        <div class="sub-card">
+                            <h4>${sub.subtitle}</h4>
+                            <div style="padding: 10px 15px;">
+                                <ul class="syarat-list" style="margin-top: 0; margin-bottom: 0;">
+                    `;
+                    sub.syarat.forEach(s => { html += `<li>${s}</li>`; });
+                    html += `</ul></div></div>`;
+                });
+            } else if (data.syarat) {
+                html += `
+                    <h3 style="color: var(--text-main); margin-bottom: 10px;"><i class="fas fa-list-check"></i> Persyaratan Dokumen:</h3>
+                    <ul class="syarat-list">
+                `;
+                data.syarat.forEach(s => { html += `<li>${s}</li>`; });
+                html += `</ul>`;
+            }
+
+            html += catatanUmum + `</div>`;
+            document.getElementById('app').innerHTML = html;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Jalankan aplikasi pertama kali dimuat
+        renderDashboard();
+    </script>
+</body>
+</html>
