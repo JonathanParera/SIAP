@@ -24,6 +24,9 @@
             margin: 0; 
             padding: 0; 
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         
         /* HEADER STYLING */
@@ -129,7 +132,16 @@
         .header-officials:hover img { transform: translateY(-3px) scale(1.02); }
         
         /* KONTEN UTAMA */
-        .container { max-width: 1000px; margin: -1.5rem auto 2rem auto; padding: 0 1rem; position: relative; z-index: 4;}
+        .container { 
+            max-width: 1000px; 
+            margin: -1.5rem auto 2rem auto; 
+            padding: 0 1rem; 
+            position: relative; 
+            z-index: 4;
+            flex: 1; /* Membuat konten utama mengisi sisa ruang */
+            width: 100%;
+            box-sizing: border-box;
+        }
         
         .card { 
             background: var(--card-bg); padding: 1.5rem; border-radius: 12px; 
@@ -137,7 +149,6 @@
             margin-bottom: 1.5rem; transition: all 0.3s ease; border-top: 4px solid transparent;
         }
         
-        /* Efek klik untuk kartu menu */
         .layanan-item { cursor: pointer; }
         .layanan-item:hover {
             transform: translateY(-5px);
@@ -214,6 +225,21 @@
         .back-link:hover { background: #dbeafe; }
         .service-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 10px; }
         
+        /* FOOTER COPYRIGHT */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            background: white;
+            width: 100%;
+        }
+        footer strong {
+            color: var(--primary);
+        }
+
         /* RESPONSIF HP */
         @media (max-width: 768px) {
             .header-container { flex-direction: column; text-align: center; gap: 1.5rem; padding-right: 0; }
@@ -236,7 +262,7 @@
             </div>
             <div class="header-text">
                 <h1>SIAP</h1>
-                <h2>Sistem Informasi Administrasi Pemerintah</h2>
+                <h2>Sistem Informasi Administrasi Penduduk</h2>
                 <p>Kelurahan Kasawari, Kota Bitung</p>
             </div>
             <div class="header-officials">
@@ -248,6 +274,11 @@
 
     <!-- Tempat merender tampilan halaman -->
     <div class="container" id="app"></div>
+
+    <!-- Footer Copyright -->
+    <footer>
+        &copy; 2026 Copyright <strong>JonathanParera</strong>. Sistem Informasi Administrasi Penduduk (SIAP).
+    </footer>
 
     <!-- Modal QR Code Utama -->
     <div class="modal-overlay" id="qrModal">
@@ -382,7 +413,7 @@
                 <ol>
                     <li>Dokumen yang diupload/unggah harus difoto/scan dari <strong>ASLI-nya</strong>.</li>
                     <li>Silakan isi form pengajuan pada link berikut:<br>
-                        <strong><a href="https://docs.google.com/forms/d/e/1FAIpQLSdEgHLm7Z2FdCKolCLGAw0wdXuBH8av2xB3tSrv2QH6FtzgFw/viewform?usp=publish-editor"_blank" style="color: var(--primary); text-decoration: underline; font-weight: bold;">Klik di Sini untuk Mengisi Form Pengajuan</a></strong>
+                        <strong><a href="MASUKKAN_LINK_GOOGLE_FORM_ANDA_DI_SINI" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: bold;">Klik di Sini untuk Mengisi Form Pengajuan</a></strong>
                     </li>
                     <li>Untuk pindah datang yang belum ada SKPWNI, wajib ke kantor Dukcapil terlebih dahulu.</li>
                     <li>KTP-el lama/rusak wajib diserahkan kepada petugas loket Kelurahan saat pengambilan dokumen.</li>
@@ -396,7 +427,7 @@
         `;
 
         function renderDashboard() {
-            // MAGIC AUTO-DETECTION: Mengecek apakah dibuka di komputer kelurahan atau lewat internet
+            // MAGIC AUTO-DETECTION
             const isKomputerKelurahan = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             let html = '';
 
@@ -415,7 +446,6 @@
                 `;
             }
 
-            // Bagian pencarian dan daftar layanan (Semua bisa lihat)
             html += `<input type="text" id="searchInput" class="search-box" placeholder="🔍 Cari layanan administrasi... (Misal: KTP, Kelahiran)" onkeyup="filterLayanan()">`;
             html += `<div class="grid" id="layananGrid">`;
 
@@ -432,7 +462,6 @@
             html += `</div>`;
             document.getElementById('app').innerHTML = html;
             
-            // Mengembalikan URL Ngrok yang tersimpan khusus untuk admin
             if (isKomputerKelurahan) {
                 const savedUrl = localStorage.getItem('ngrokUrl');
                 if (savedUrl && document.getElementById('ngrokUrl')) {
@@ -458,7 +487,6 @@
                 localStorage.setItem('ngrokUrl', baseUrl); 
             }
             
-            // Barcode langsung diarahkan ke URL asli (Sistem auto-deteksi akan bekerja)
             const fullUrl = baseUrl.replace(/\/+$/, '');
             const modal = document.getElementById('qrModal');
             const qrContainer = document.getElementById('qrcode');
@@ -479,7 +507,7 @@
             if (!data) return;
 
             let html = `
-                <div class="card" style="border-top: 4px solid var(--primary); padding-bottom: 2rem; margin-bottom: 3rem;">
+                <div class="card" style="border-top: 4px solid var(--primary); padding-bottom: 2rem; margin-bottom: 1rem;">
                     
                     <a href="#" onclick="renderDashboard(); return false;" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Menu Layanan</a>
                     
