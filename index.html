@@ -413,6 +413,10 @@
         `;
 
         function renderDashboard() {
+            const isKomputerKelurahan = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            let html = '';
+
+
             html += `<input type="text" id="searchInput" class="search-box" placeholder="🔍 Cari layanan administrasi... (Misal: KTP, Kelahiran)" onkeyup="filterLayanan()">`;
             html += `<div class="grid" id="layananGrid">`;
 
