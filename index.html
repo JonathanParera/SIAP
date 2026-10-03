@@ -277,21 +277,7 @@
 
     <!-- Footer Copyright -->
     <footer>
-        &copy; 2026 Copyright <strong>Kasawari</strong>. Sistem Informasi Administrasi Penduduk (SIAP).
-    </footer>
-
-    <!-- Modal QR Code Utama -->
-    <div class="modal-overlay" id="qrModal">
-        <div class="modal-content">
-            <h3 style="margin-top:0; color: var(--primary);">Barcode Aplikasi SIAP</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;">Scan barcode ini untuk membuka Menu Layanan di HP Pemohon</p>
-            <div id="qrcode"></div>
-            <button class="btn" style="background: #ef4444;" onclick="closeModal()">
-                <i class="fas fa-times"></i> Tutup Barcode
-            </button>
-        </div>
-    </div>
-
+        &copy; 2026 Copyright <strong>Kasawari</strong>. Sistem Informasi Administra
     <script>
         const dataLayanan = {
             "pindah-datang": {
@@ -427,25 +413,6 @@
         `;
 
         function renderDashboard() {
-            // MAGIC AUTO-DETECTION
-            const isKomputerKelurahan = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            let html = '';
-
-            // Tampilkan Panel Admin HANYA jika dibuka di komputer kelurahan (localhost)
-            if (isKomputerKelurahan) {
-                html += `
-                    <div class="card dashboard-card" style="border-top: 4px solid #ef4444 !important; background-color: #fef2f2;">
-                        <h2 style="margin-top: 0; color: #b91c1c;"><i class="fas fa-desktop"></i> Khusus Layar Komputer Kelurahan</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 5px;">Masukkan URL Ngrok aktif untuk membuat <strong>Barcode Utama Aplikasi</strong>:</p>
-                        <div class="ngrok-input-group">
-                            <input type="text" id="ngrokUrl" placeholder="Contoh: https://abcd-123.ngrok-free.app">
-                            <button class="btn" style="width: auto; background: #ef4444;" onclick="generateMasterQR()"><i class="fas fa-qrcode"></i> Tampilkan Barcode</button>
-                        </div>
-                        <p style="font-size: 0.85rem; color: #b91c1c; margin-top: 10px; margin-bottom: 0;">*Catatan: Kotak merah ini otomatis menghilang jika warga membuka aplikasi di HP mereka.</p>
-                    </div>
-                `;
-            }
-
             html += `<input type="text" id="searchInput" class="search-box" placeholder="🔍 Cari layanan administrasi... (Misal: KTP, Kelahiran)" onkeyup="filterLayanan()">`;
             html += `<div class="grid" id="layananGrid">`;
 
@@ -462,12 +429,6 @@
             html += `</div>`;
             document.getElementById('app').innerHTML = html;
             
-            if (isKomputerKelurahan) {
-                const savedUrl = localStorage.getItem('ngrokUrl');
-                if (savedUrl && document.getElementById('ngrokUrl')) {
-                    document.getElementById('ngrokUrl').value = savedUrl;
-                }
-            }
         }
 
         function filterLayanan() {
